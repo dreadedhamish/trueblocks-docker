@@ -31,6 +31,3 @@ services:
         source: /data/h-volumes/trueblocks/pulsechain
         target: /root/.local/share/trueblocks/config/pulsechain
       - /data/h-volumes/trueblocks/trueBlocks.toml:/root/.local/share/trueblocks/trueBlocks.toml
-volumes:
-  unchained:
-  cache:
