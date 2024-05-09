@@ -3,21 +3,34 @@ name: trueblockscore
 # UPDATE_DOCKER_BUILD_VERSION
 services:
   core:
-    image: trueblocks/core:v0.70.0-beta
+    image: trueblocks/core:v2.5.8-release
     build: ./
-    env_file: .env
+    # env_file: .env
+    environment:
+      TB_SETTINGS_DEFAULTCHAIN=pulsechain
+      TB_SETTINGS_CACHEPATH=/cache
+      TB_SETTINGS_INDEXPATH=/unchained
+    command: > 
+      bash -c  "chifra daemon"
+    # command: > 
+    #   bash -c  "chifra daemon && 
+    #             chifra init --all"
     ports:
-      - "8080:${SERVE_PORT-8080}"
+      - "8083:${SERVE_PORT-8080}"
     volumes:
       - type: bind
         # The source should match the folder you made to store the cache
-        source: /Users/user/Data/docker/cache
+        source: /data/h-volumes/trueblocks/cache
         target: /cache
       - type: bind
         # The source should match the folder you made to store the Unchained index
-        source: /Users/user/Data/docker/unchained
+        source: /data/h-volumes/trueblocks/unchained
         target: /unchained
+      - type: bind
+      #  The source should match the folder you made to store the cache
+        source: /data/h-volumes/trueblocks/pulsechain
+        target: /root/.local/share/trueblocks/config/pulsechain
+      - /data/h-volumes/trueblocks/trueBlocks.toml:/root/.local/share/trueblocks/trueBlocks.toml
 volumes:
   unchained:
   cache:
-
