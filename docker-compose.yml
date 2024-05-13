@@ -10,8 +10,8 @@ services:
       - TB_SETTINGS_DEFAULTCHAIN=pulsechain
       - TB_SETTINGS_CACHEPATH=/cache
       - TB_SETTINGS_INDEXPATH=/unchained
-    command: > 
-      bash -c  "chifra daemon"
+    command: bash -c  "chifra daemon & sleep 15 && chifra scrape"
+    stop_grace_period: 120s
     # command: > 
     #   bash -c  "chifra daemon && 
     #             chifra init --all"
